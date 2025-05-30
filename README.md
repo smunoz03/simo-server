@@ -100,32 +100,6 @@ Content-Length: 98
 {"user":{"id":"...","name":"Test User","email":"test@example.com"}}
 ```
 
-## Project Structure
-
-```
-faciliSIMO/
-├── .env.example
-├── .gitignore
-├── package.json
-├── server.js
-└── src/
-    ├── app.js
-    ├── config/
-    │   └── db.js
-    ├── controllers/
-    │   ├── authController.js
-    │   └── jobController.js
-    ├── middleware/
-    │   ├── errorHandler.js
-    │   └── validators.js
-    ├── models/
-    │   ├── jobModel.js
-    │   └── userModel.js
-    └── routes/
-        ├── authRoutes.js
-        └── jobRoutes.js
-```
-
 ## License
 
 MIT License
