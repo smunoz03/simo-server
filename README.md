@@ -81,28 +81,6 @@
     ```
 - **Authentication:** Sets an HTTP-only session cookie.
 
-## Testing with PowerShell
-
-```powershell
-# Register user
-$body = @{
-  name     = 'Test User'
-  email    = 'test@example.com'
-  password = 'password123'
-} | ConvertTo-Json
-
-Invoke-RestMethod -Method Post `
-  -Uri http://localhost:3000/api/auth/register `
-  -Headers @{ 'Content-Type' = 'application/json' } `
-  -Body $body `
-  -SessionVariable session
-
-# List jobs
-Invoke-RestMethod -Method Get `
-  -Uri http://localhost:3000/api/jobs `
-  -WebSession $session
-```
-
 ## Project Structure
 
 ```
