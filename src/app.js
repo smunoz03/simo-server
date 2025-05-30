@@ -29,6 +29,7 @@ app.use(session({
 // ────────────────────────────────────────────────────────────────────────────────
 
 app.use('/api/auth', authRoutes);
+app.use('/api/jobs', jobRoutes);
 
 app.use(notFound);
 app.use(errorHandler);

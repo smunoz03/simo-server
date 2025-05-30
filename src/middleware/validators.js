@@ -9,3 +9,9 @@ exports.registerValidation = [
   check('email',    'Correo electrónico inválido').matches(emailRegex),
   check('password', 'La contraseña debe tener al menos 8 caracteres').isLength({ min: 8 }),
 ];
+
+// ─── Login validation ───────────────────────────────────────────────────────────
+exports.loginValidation = [
+  check('email',    'Correo electrónico inválido').matches(emailRegex),
+  check('password', 'La contraseña debe tener al menos 8 caracteres').isLength({ min: 8 }),
+];

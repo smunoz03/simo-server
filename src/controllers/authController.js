@@ -36,3 +36,46 @@ exports.register = async (req, res, next) => {
     next(err);
   }
 };
+
+// @desc   Login an existing user
+// @route  POST /api/auth/login
+// @access Public
+exports.login = async (req, res, next) => {
+  // 1) Validate input
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(400).json({ errors: errors.array() });
+  }
+
+  // 2) Destructure & cast to strings
+  const email    = String(req.body.email).trim().toLowerCase();
+  const password = String(req.body.password);
+
+  try {
+    // 3) Find user by email
+    const user = await User.findOne({ email });
+    if (!user) {
+      return res.status(401).json({ message: 'Credenciales inválidas' });
+    }
+
+    // 4) Compare password
+    const isMatch = await bcrypt.compare(password, user.password);
+    if (!isMatch) {
+      return res.status(401).json({ message: 'Credenciales inválidas' });
+    }
+
+    // 5) Set session cookie
+    req.session.userId = user._id;
+
+    // 6) Success response
+    return res.json({
+      user: {
+        id:    user._id,
+        name:  user.name,
+        email: user.email
+      }
+    });
+  } catch (err) {
+    next(err);
+  }
+};

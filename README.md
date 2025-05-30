@@ -58,28 +58,47 @@
 
 ### Register a new user
 
-- **URL:** `POST /api/auth/register`
-- **Body:**
-  ```json
-  {
-    "name": "Test User",
-    "email": "test@example.com",
-    "password": "password123"
-  }
-  ```
-- **Success Response:**
-  - **Code:** 201 Created  
-  - **Response Body:**
-    ```json
-    {
-      "user": {
-        "id": "60d21baee1d3c073d45e5f1a",
-        "name": "Test User",
-        "email": "test@example.com"
-      }
-    }
-    ```
-- **Authentication:** Sets an HTTP-only session cookie.
+**Request**
+```bash
+curl -i -X POST http://localhost:3000/api/auth/register \
+  -H "Content-Type: application/json" \
+  -d '{ "name": "Test User", "email": "test@example.com", "password": "password123" }' \
+  -c cookies.txt
+```
+
+**Response**
+
+```
+HTTP/1.1 201 Created
+Set-Cookie: faciliSIMO.sid=eyJh…; Path=/; HttpOnly; SameSite=Lax
+Content-Type: application/json; charset=utf-8
+Content-Length: 123
+
+{"user":{"id":"...","name":"Test User","email":"test@example.com"}}
+```
+
+### Login
+
+**Request**
+
+```bash
+curl -i -X POST http://localhost:3000/api/auth/login \
+  -H "Content-Type: application/json" \
+  -d '{ "email": "test@example.com", "password": "password123" }' \
+  -b cookies.txt \
+  -c cookies.txt
+```
+
+**Response**
+
+```bash
+HTTP/1.1 200 OK
+Set-Cookie: faciliSIMO.sid=eyJh…; Path=/; HttpOnly; SameSite=Lax
+Content-Type: application/json; charset=utf-8
+Content-Length: 98
+
+{"user":{"id":"...","name":"Test User","email":"test@example.com"}}
+```
 
 ## Project Structure
 
