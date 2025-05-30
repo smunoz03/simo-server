@@ -2,7 +2,8 @@
 const express = require('express');
 const {
   register,
-  login
+  login,
+  confirmEmail
 } = require('../controllers/authController');
 const {
   registerValidation,
@@ -16,5 +17,8 @@ router.post('/register', registerValidation, register);
 
 // Login
 router.post('/login',    loginValidation,    login);
+
+// Confirm token
+router.get('/confirm/:token', confirmEmail);
 
 module.exports = router;
