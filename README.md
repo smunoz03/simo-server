@@ -81,18 +81,6 @@
     ```
 - **Authentication:** Sets an HTTP-only session cookie.
 
-### List jobs
-
-- **URL:** `GET /api/jobs`
-- **Headers:** Include the session cookie returned on registration.
-- **Response Body:** Array of job objects.
-
-### Create a job
-
-- **URL:** `POST /api/jobs`
-- **Body:** any job fields (e.g., `title`, `company`, `location`, `description`)
-- **Authentication:** Requires session cookie.
-
 ## Testing with PowerShell
 
 ```powershell
