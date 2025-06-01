@@ -5,6 +5,27 @@ const crypto = require('crypto');
 const User   = require('../models/userModel');
 const { sendEmail } = require('../utils/email');
 
+/**
+ * @desc   Get current user’s info (except password)
+ * @route  GET /api/me
+ * @access Private (requires session)
+ */
+exports.getMe = async (req, res, next) => {
+  try {
+    // req.session.userId was set at login/registration
+    const user = await User.findById(req.session.userId)
+      .select('-password'); // exclude password field
+
+    if (!user) {
+      return res.status(404).json({ message: 'Usuario no encontrado' });
+    }
+
+    res.json({ user });
+  } catch (err) {
+    next(err);
+  }
+};
+
 exports.register = async (req, res, next) => {
   // 1) Validate input
   const errors = validationResult(req);

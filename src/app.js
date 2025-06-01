@@ -4,6 +4,8 @@ const session = require('express-session');
 const MongoStore = require('connect-mongo');
 const authRoutes = require('./routes/authRoutes');
 const jobRoutes  = require('./routes/jobRoutes');
+const { getMe } = require('./controllers/authController');
+const requireAuth = require('./middleware/auth');
 const { notFound, errorHandler } = require('./middleware/errorHandler');
 
 require('dotenv').config();
@@ -30,6 +32,7 @@ app.use(session({
 
 app.use('/api/auth', authRoutes);
 app.use('/api/jobs', jobRoutes);
+app.get('/api/me', requireAuth, getMe);
 
 app.use(notFound);
 app.use(errorHandler);
