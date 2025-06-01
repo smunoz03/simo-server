@@ -100,6 +100,51 @@ Content-Length: 98
 {"user":{"id":"...","name":"Test User","email":"test@example.com"}}
 ```
 
+### me
+
+**Request**
+
+```bash
+curl -i http://localhost:3000/api/auth/me -b login_cookies.txt
+
+```
+**Response**
+
+```
+HTTP/1.1 200 OK
+X-Powered-By: Express
+Content-Type: application/json; charset=utf-8
+Content-Length: 199
+ETag: W/"c7-L1SdAHSkd2gyk6k6E0ysPNsJQrI"
+Date: Sun, 01 Jun 2025 02:18:48 GMT
+Connection: keep-alive
+Keep-Alive: timeout=5
+
+{"user":{"_id":"683bb82939fac0e3c1cff2d0","name":"Test User","email":"test@example.com","isEmailConfirmed":true,"createdAt":"2025-06-01T02:17:13.710Z","updatedAt":"2025-06-01T02:18:00.829Z","__v":0}}
+```
+
+### Upload CV
+
+**Request**
+
+```bash
+curl -i -X POST http://localhost:3000/api/auth/upload_cv -F "cv=@C:\Users\user\test_info\sample.pdf;type=application/pdf" -b login_cookies.txt
+```
+**Response**
+
+```
+HTTP/1.1 200 OK
+X-Powered-By: Express
+Content-Type: application/json; charset=utf-8
+Content-Length: 92
+ETag: W/"5c-cESwgIfvJMGZUnBTWim+oeDUwok"
+Date: Sun, 01 Jun 2025 02:43:37 GMT
+Connection: keep-alive
+Keep-Alive: timeout=5
+
+{"message":"CV subido correctamente.","cvFile":"uploads\\cvs\\683bb82939fac0e3c1cff2d0.pdf"}
+```
+
 ## License
 
 MIT License
