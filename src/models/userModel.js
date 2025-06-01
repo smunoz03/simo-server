@@ -8,6 +8,7 @@ const userSchema = new mongoose.Schema({
   isEmailConfirmed:      { type: Boolean, default: false },
   confirmationToken:     { type: String },
   confirmationTokenExpires: { type: Date },
+  cvFile:                  { type: String },
 }, { timestamps: true });
 
 module.exports = mongoose.model('User', userSchema);

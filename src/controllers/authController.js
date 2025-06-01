@@ -2,6 +2,8 @@
 const { validationResult } = require('express-validator');
 const bcrypt = require('bcryptjs');
 const crypto = require('crypto');
+const fs = require('fs');
+const path = require('path');
 const User   = require('../models/userModel');
 const { sendEmail } = require('../utils/email');
 
@@ -151,6 +153,45 @@ exports.login = async (req, res, next) => {
     req.session.userId = user._id;
     return res.json({
       user: { id: user._id, name: user.name, email: user.email }
+    });
+  } catch (err) {
+    next(err);
+  }
+};
+
+exports.uploadCv = async (req, res, next) => {
+  try {
+    // 1) Ensure multer accepted a file
+    if (!req.file) {
+      return res.status(400).json({ message: 'Se requiere un archivo PDF.' });
+    }
+
+    // 2) Find the logged-in user
+    const userId = req.session.userId;
+    const user = await User.findById(userId);
+    if (!user) {
+      // In case somehow session.userId is invalid
+      return res.status(404).json({ message: 'Usuario no encontrado.' });
+    }
+
+    // 3) Delete previous CV file if exists
+    if (user.cvFile) {
+      const oldPath = path.join(__dirname, '../../', user.cvFile);
+      fs.unlink(oldPath, (err) => {
+        // ignore errors: maybe file was manually removed
+      });
+    }
+
+    // 4) Save new file’s relative path in DB
+    //    req.file.path is absolute or relative depending on multer; we store a relative path
+    const relativePath = path.relative(path.join(__dirname, '../..'), req.file.path);
+    user.cvFile = relativePath;
+    await user.save();
+
+    // 5) Respond with success
+    return res.json({
+      message: 'CV subido correctamente.',
+      cvFile: user.cvFile
     });
   } catch (err) {
     next(err);

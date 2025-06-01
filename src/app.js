@@ -13,6 +13,7 @@ require('dotenv').config();
 const app = express();
 app.use(express.json());
 app.use(express.static('public'));
+app.use('/uploads', express.static('uploads'));
 
 // ───SESSION SETUP──────────────────────────────────────────────────────────────
 app.use(session({
