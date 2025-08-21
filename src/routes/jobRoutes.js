@@ -1,12 +1,10 @@
 // src/routes/jobRoutes.js
 const express = require('express');
-const { getJobs, createJob } = require('../controllers/jobController');
+const { validateCV } = require('../controllers/jobController');
 const requireAuth = require('../middleware/auth');
 
 const router = express.Router();
 
-router.route('/')
-  .get(requireAuth, getJobs)
-  .post(requireAuth, createJob);
+router.get('/:jobId/validate_cv', requireAuth, validateCV);
 
 module.exports = router;

@@ -1,16 +1,41 @@
 // src/controllers/jobController.js
 const Job = require('../models/jobModel');
+const { getEmbedding, compareWithChat } = require('../utils/geminiHelper');
 
-exports.getJobs = async (req, res, next) => {
+exports.validateCV = async (req, res, next) => {
   try {
-    const jobs = await Job.find().sort({ postedAt: -1 });
-    res.json(jobs);
-  } catch (err) { next(err); }
-};
+    const { jobId } = req.params;
+    const userId    = req.session.userId;
 
-exports.createJob = async (req, res, next) => {
-  try {
-    const job = await Job.create(req.body);
-    res.status(201).json(job);
-  } catch (err) { next(err); }
+    // 1) Fetch job and ensure JD text is available
+    const job = await Job.findById(jobId);
+    if (!job || !job.jdExtractedText) {
+      return res.status(404).json({ message: 'Job no encontrado o sin texto de JD.' });
+    }
+
+    // 2) Fetch user and ensure CV exists
+    const user = await User.findById(userId);
+    if (!user || !user.cvFile) {
+      return res.status(404).json({ message: 'Usuario no encontrado o sin CV subido.' });
+    }
+
+    // 3) Extract text from the CV PDF
+    const cvPath = path.join(__dirname, '../..', user.cvFile);
+    if (!fs.existsSync(cvPath)) {
+      return res.status(404).json({ message: 'Archivo CV no encontrado en el servidor.' });
+    }
+    const cvText = await extractText(cvPath);
+
+    // 4) Ask Gemini (via GenAI SDK) to compare
+    const result = await compareWithChat(job.jdExtractedText, cvText);
+    // result should be { canApply, score, reasons }
+
+    return res.json({
+      jobId,
+      userId,
+      ...result
+    });
+  } catch (err) {
+    next(err);
+  }
 };
