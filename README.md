@@ -145,6 +145,11 @@ Keep-Alive: timeout=5
 {"message":"CV subido correctamente.","cvFile":"uploads\\cvs\\683bb82939fac0e3c1cff2d0.pdf"}
 ```
 
+### CV matching
+
+Internally, the server compares a user's CV against all stored jobs and keeps potential matches whose scores fall between 70 and 100.
+This process runs as a scheduled trigger and exposes no public endpoint.
+
 ## License
 
 MIT License

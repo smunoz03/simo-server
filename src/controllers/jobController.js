@@ -5,34 +5,28 @@ const { compareWithChat } = require('../utils/geminiHelper');
 
 exports.validateCV = async (req, res, next) => {
   try {
-    const { jobId } = req.params;
-    const userId    = req.session.userId;
+    const userId = req.session.userId;
 
-    // 1) Fetch job and ensure JD JSON is available
-    const job = await Job.findById(jobId);
-    if (!job || !job.jdExtractedJson) {
-      return res.status(404).json({ message: 'Job no encontrado o sin JSON de JD.' });
-    }
-
-    // 2) Fetch user and ensure CV text is available
+    // 1) Fetch user and ensure CV text is available
     const user = await User.findById(userId);
     if (!user || !user.cvExtractedText) {
       return res.status(404).json({ message: 'Usuario no encontrado o sin CV procesado.' });
     }
-
-    // 3) Grab CV text directly for comparison
     const cvText = user.cvExtractedText;
-    const jdJson = JSON.stringify(job.jdExtractedJson);
 
-    // 4) Ask Gemini (via GenAI SDK) to compare
-    const result = await compareWithChat(jdJson, cvText);
-    // result should be { canApply, score, reasons }
+    // 2) Evaluate against all jobs with JD JSON
+    const jobs = await Job.find({ jdExtractedJson: { $exists: true } });
 
-    return res.json({
-      jobId,
-      userId,
-      ...result
-    });
+    const matches = [];
+    for (const job of jobs) {
+      const jdJson = JSON.stringify(job.jdExtractedJson);
+      const result = await compareWithChat(jdJson, cvText);
+      if (result && typeof result.score === 'number' && result.score >= 70 && result.score <= 100) {
+        matches.push({ jobId: job._id.toString(), ...result });
+      }
+    }
+
+    return res.json(matches);
   } catch (err) {
     next(err);
   }
