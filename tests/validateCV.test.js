@@ -16,8 +16,12 @@ const cvText = 'Sample CV text';
 const Job = {
   findById: async () => ({ jdExtractedText: jdText })
 };
+const userDoc = {
+  cvFile: 'tests/fixtures/cv.pdf',
+  async save() { this.saved = true; }
+};
 const User = {
-  findById: async () => ({ cvFile: 'tests/fixtures/cv.pdf' })
+  findById: async () => userDoc
 };
 global.User = User;
 
@@ -54,5 +58,7 @@ const { validateCV } = require('../src/controllers/jobController');
   assert.strictEqual(res.body.jobId, '1');
   assert.strictEqual(res.body.userId, 'u1');
   assert.strictEqual(res.body.canApply, true);
+  assert.strictEqual(userDoc.cvExtractedText, cvText);
+  assert.strictEqual(userDoc.saved, true);
   console.log('validateCV test passed');
 })();
