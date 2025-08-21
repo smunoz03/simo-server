@@ -32,6 +32,7 @@ exports.validateCV = async (req, res, next) => {
       cvText = await extractText(cvPath);
     }
 
+
     // 4) Ask Gemini (via GenAI SDK) to compare
     const result = await compareWithChat(job.jdExtractedText, cvText);
     // result should be { canApply, score, reasons }

@@ -7,6 +7,7 @@ const { jdExtractedText: jdText, cvExtractedText: cvText } = require('./fixtures
 const Job = {
   findById: async () => ({ jdExtractedText: jdText })
 };
+
 const User = { findById: async () => ({ cvExtractedText: cvText }) };
 
 const compareWithChat = async (jd, cv) => {
@@ -15,6 +16,7 @@ const compareWithChat = async (jd, cv) => {
 };
 
 // Inject stubs into require cache
+
 const jobModelPath = require.resolve('../src/models/jobModel.js');
 require.cache[jobModelPath] = { exports: Job };
 
@@ -39,4 +41,5 @@ const { validateCV } = require('../src/controllers/jobController');
   assert.strictEqual(res.body.userId, 'u1');
   assert.strictEqual(res.body.canApply, true);
   console.log('validateCV test passed');
+
 })();
