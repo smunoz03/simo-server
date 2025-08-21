@@ -1,6 +1,11 @@
 // src/controllers/jobController.js
+const fs = require('fs');
+const path = require('path');
 const Job = require('../models/jobModel');
-const { getEmbedding, compareWithChat } = require('../utils/geminiHelper');
+const { compareWithChat } = require('../utils/geminiHelper');
+const { extractText } = require('../utils/pdfExtractor');
+
+const User = global.User || require('../models/userModel');
 
 exports.validateCV = async (req, res, next) => {
   try {
