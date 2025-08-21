@@ -37,10 +37,10 @@ exports.register = async (req, res, next) => {
   if (!errors.isEmpty())
     return res.status(400).json({ errors: errors.array() });
 
-  const { name, password } = req.body;
-  const email = String(req.body.email).trim().toLowerCase();
+  const { name, email, password } = req.body;
+  const normalizedEmail = String(email).trim().toLowerCase();
   try {
-    if (await User.findOne({ email })) {
+    if (await User.findOne({ email: normalizedEmail })) {
       return res.status(400).json({ message: 'El correo ya está en uso' });
     }
 
@@ -52,7 +52,9 @@ exports.register = async (req, res, next) => {
     const expires = Date.now() + 24*60*60*1000; // 24h
 
     const user = await User.create({
-      name, email, password: hash,
+      name,
+      email: normalizedEmail,
+      password: hash,
       confirmationToken: token,
       confirmationTokenExpires: expires
     });
@@ -61,7 +63,7 @@ exports.register = async (req, res, next) => {
     const confirmUrl = `${process.env.BASE_URL}/api/auth/confirm/${token}`;
     const html = `<p>Hola ${name},</p>
       <p>Haz clic <a href="${confirmUrl}">aquí</a> para confirmar tu correo.</p>`;
-    await sendEmail(email, 'Confirma tu correo en FaciliSIMO', html);
+    await sendEmail(normalizedEmail, 'Confirma tu correo en FaciliSIMO', html);
 
     console.log('✉️ Confirmation URL:', confirmUrl);
     // set session if desired
@@ -69,7 +71,7 @@ exports.register = async (req, res, next) => {
 
     return res.status(201).json({
       message: 'Registrado. Revisa tu correo para confirmar.',
-      user: { id: user._id, name, email }
+      user: { id: user._id, name, email: normalizedEmail }
     });
   } catch (err) {
     next(err);
