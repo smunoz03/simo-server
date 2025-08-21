@@ -1,11 +1,12 @@
 const assert = require('assert');
 
-// Load sample data directly from JSON fixture
-const { jdExtractedText: jdText, cvExtractedText: cvText } = require('./fixtures/jd.json');
+// Sample data used in the test
+const jdJson = require('../uploads/fixtures/jd.json');
+const cvText = 'sample CV text';
 
 // Stub models and helpers
 const Job = {
-  findById: async () => ({ jdExtractedText: jdText })
+  findById: async () => ({ jdExtractedJson: jdJson })
 };
 
 const User = { findById: async () => ({ cvExtractedText: cvText }) };
@@ -31,12 +32,15 @@ const { validateCV } = require('../src/controllers/jobController');
 
 (async () => {
   const req = { params: { jobId: '1' }, session: { userId: 'u1' } };
-  const res = { json: data => { res.body = data; } };
+  const res = {
+    json: data => { res.body = data; },
+    status: () => res
+  };
   const next = err => { throw err; };
 
   await validateCV(req, res, next);
 
-  assert.deepStrictEqual(compareWithChat.calledWith, [jdText, cvText]);
+  assert.deepStrictEqual(compareWithChat.calledWith, [JSON.stringify(jdJson), cvText]);
   assert.strictEqual(res.body.jobId, '1');
   assert.strictEqual(res.body.userId, 'u1');
   assert.strictEqual(res.body.canApply, true);
