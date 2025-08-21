@@ -1,8 +1,9 @@
 const assert = require('assert');
 
 // Sample data used in the test
-const jdJson = require('../uploads/fixtures/jd.json');
-const cvText = 'sample CV text';
+const jdJson = require('./fixtures/jd.json');
+const cvJson = require('./fixtures/cv.json');
+const cvText = cvJson.pages.map(page => page.text).join(' ');
 
 // Stub models and helpers
 const Job = {
