@@ -1,9 +1,13 @@
 // src/controllers/jobController.js
+const fs = require('fs');
+const path = require('path');
 const Job = require('../models/jobModel');
 const User = require('../models/userModel');
 const { getEmbedding, compareWithChat } = require('../utils/geminiHelper');
 const path = require('path');
 const fs = require('fs');
+
+
 
 exports.validateCV = async (req, res, next) => {
   try {
@@ -15,6 +19,7 @@ exports.validateCV = async (req, res, next) => {
     if (!job || !job.jdExtractedText) {
       return res.status(404).json({ message: 'Job no encontrado o sin texto de JD.' });
     }
+
 
     // 2) Fetch user and ensure CV text is available
     const user = await User.findById(userId);

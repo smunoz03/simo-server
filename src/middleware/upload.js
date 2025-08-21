@@ -2,6 +2,7 @@
 const fs = require('fs');
 const path = require('path');
 const multer = require('multer');
+const crypto = require('crypto');
 
 // Ensure upload directory exists
 const uploadDir = path.join(__dirname, '../../uploads/cvs');
@@ -13,10 +14,23 @@ const storage = multer.diskStorage({
     cb(null, uploadDir);
   },
   filename: (req, file, cb) => {
-    // Use userId as filename (to ensure one-per-user)
     const userId = req.session.userId;
+    const userHash = crypto.createHash('sha256').update(userId).digest('hex');
+    const timestamp = Date.now().toString();
     const ext = path.extname(file.originalname).toLowerCase();
-    cb(null, `${userId}${ext}`);
+
+    // ensure only one CV exists per user by removing old files
+    const existing = fs.readdirSync(uploadDir).find(f => f.startsWith(userHash));
+    if (existing) {
+      fs.unlinkSync(path.join(uploadDir, existing));
+    }
+
+    // hash userId + timestamp for the stored filename
+    const uniqueHash = crypto
+      .createHash('sha256')
+      .update(userId + timestamp)
+      .digest('hex');
+    cb(null, `${userHash}-${uniqueHash}${ext}`);
   }
 });
 

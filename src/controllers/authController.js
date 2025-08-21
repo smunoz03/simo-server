@@ -6,6 +6,7 @@ const fs = require('fs');
 const path = require('path');
 const User   = require('../models/userModel');
 const { sendEmail } = require('../utils/email');
+const { extractText } = require('../utils/pdfExtractor');
 
 /**
  * @desc   Get current user’s info (except password)
@@ -153,9 +154,14 @@ exports.uploadCv = async (req, res, next) => {
 
     // 4) Save new file’s relative path in DB
     //    req.file.path is absolute or relative depending on multer; we store a relative path
-    const relativePath = path.relative(path.join(__dirname, '../..'), req.file.path);
-    user.cvFile = relativePath;
-    await user.save();
+      const relativePath = path.relative(path.join(__dirname, '../..'), req.file.path);
+      user.cvFile = relativePath;
+
+      // Extract text from uploaded CV and store it
+      const cvText = await extractText(req.file.path);
+      user.cvExtractedText = cvText;
+
+      await user.save();
 
     // 5) Respond with success
     return res.json({

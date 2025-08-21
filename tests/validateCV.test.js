@@ -2,6 +2,7 @@ const assert = require('assert');
 const path = require('path');
 const fs = require('fs');
 
+
 // Read sample data
 const jdPath = path.join(__dirname, 'fixtures/jd.json');
 const { jdExtractedText: jdText, cvExtractedText: cvText } = JSON.parse(
@@ -12,7 +13,9 @@ const { jdExtractedText: jdText, cvExtractedText: cvText } = JSON.parse(
 const Job = {
   findById: async () => ({ jdExtractedText: jdText })
 };
+
 const User = { findById: async () => ({ cvExtractedText: cvText }) };
+
 
 const compareWithChat = async (jd, cv) => {
   compareWithChat.calledWith = [jd, cv];
@@ -22,6 +25,7 @@ const compareWithChat = async (jd, cv) => {
 // Inject stubs into require cache
 const jobModelPath = path.join(__dirname, '../src/models/jobModel.js');
 require.cache[jobModelPath] = { exports: Job };
+
 
 const userModelPath = path.join(__dirname, '../src/models/userModel.js');
 require.cache[userModelPath] = { exports: User };
@@ -43,5 +47,8 @@ const { validateCV } = require('../src/controllers/jobController');
   assert.strictEqual(res.body.jobId, '1');
   assert.strictEqual(res.body.userId, 'u1');
   assert.strictEqual(res.body.canApply, true);
-  console.log('validateCV test passed');
+
+  assert.strictEqual(userDoc.cvExtractedText, cvText);
+  assert.strictEqual(userDoc.saved, true);
+
 })();
