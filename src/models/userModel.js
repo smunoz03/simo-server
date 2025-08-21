@@ -9,6 +9,7 @@ const userSchema = new mongoose.Schema({
   confirmationToken:     { type: String },
   confirmationTokenExpires: { type: Date },
   cvFile:                  { type: String },
+  cvExtractedText:        { type: String },
 }, { timestamps: true });
 
 module.exports = mongoose.model('User', userSchema);
