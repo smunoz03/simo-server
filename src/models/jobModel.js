@@ -7,6 +7,7 @@ const jobSchema = new mongoose.Schema({
   asignacionSalarial:   { type: Number, required: true },
   codigoEmpleo:{ type: String, required: true },
   descripcion:   { type: String, required: true },
+  jdExtractedJson: { type: mongoose.Schema.Types.Mixed },
   // add more fields as needed…
 });
 
