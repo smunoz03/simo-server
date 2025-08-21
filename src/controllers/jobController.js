@@ -3,9 +3,8 @@ const fs = require('fs');
 const path = require('path');
 const Job = require('../models/jobModel');
 const User = require('../models/userModel');
-const { getEmbedding, compareWithChat } = require('../utils/geminiHelper');
-const path = require('path');
-const fs = require('fs');
+const { compareWithChat } = require('../utils/geminiHelper');
+const { extractText } = require('../utils/pdfExtractor');
 
 
 
@@ -35,6 +34,11 @@ exports.validateCV = async (req, res, next) => {
         return res.status(404).json({ message: 'Archivo CV no encontrado en el servidor.' });
       }
       cvText = await extractText(cvPath);
+      // Persist the extracted text for future requests
+      user.cvExtractedText = cvText;
+      if (typeof user.save === 'function') {
+        await user.save();
+      }
     }
 
     // 4) Ask Gemini (via GenAI SDK) to compare
