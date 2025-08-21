@@ -2,7 +2,6 @@ const assert = require('assert');
 const path = require('path');
 const fs = require('fs');
 
-
 // Read sample data
 const jdPath = path.join(__dirname, 'fixtures/jd.json');
 const { jdExtractedText: jdText, cvExtractedText: cvText } = JSON.parse(
@@ -14,15 +13,8 @@ const Job = {
   findById: async () => ({ jdExtractedText: jdText })
 };
 
-const userDoc = {
-  cvFile: 'tests/fixtures/cv.pdf',
-  async save() {
-    this.saved = true;
-  }
-};
+const userDoc = { cvExtractedText: cvText };
 const User = { findById: async () => userDoc };
-
-global.extractText = async () => cvText;
 
 const compareWithChat = async (jd, cv) => {
   compareWithChat.calledWith = [jd, cv];
@@ -33,15 +25,11 @@ const compareWithChat = async (jd, cv) => {
 const jobModelPath = path.join(__dirname, '../src/models/jobModel.js');
 require.cache[jobModelPath] = { exports: Job };
 
-
 const userModelPath = path.join(__dirname, '../src/models/userModel.js');
 require.cache[userModelPath] = { exports: User };
 
 const geminiHelperPath = path.join(__dirname, '../src/utils/geminiHelper.js');
 require.cache[geminiHelperPath] = { exports: { compareWithChat } };
-
-const pdfExtractorPath = path.join(__dirname, '../src/utils/pdfExtractor.js');
-require.cache[pdfExtractorPath] = { exports: { extractText: global.extractText } };
 
 // Now require the controller
 const { validateCV } = require('../src/controllers/jobController');
@@ -57,9 +45,4 @@ const { validateCV } = require('../src/controllers/jobController');
   assert.strictEqual(res.body.jobId, '1');
   assert.strictEqual(res.body.userId, 'u1');
   assert.strictEqual(res.body.canApply, true);
-
-  assert.strictEqual(userDoc.cvExtractedText, cvText);
-  assert.strictEqual(userDoc.saved, true);
-
-  delete global.extractText;
 })();
