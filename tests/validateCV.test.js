@@ -1,20 +1,14 @@
 const assert = require('assert');
-const path = require('path');
-const fs = require('fs');
 
-// Read sample data
-const jdPath = path.join(__dirname, 'fixtures/jd.json');
-const { jdExtractedText: jdText, cvExtractedText: cvText } = JSON.parse(
-  fs.readFileSync(jdPath, 'utf8')
-);
+// Load sample data directly from JSON fixture
+const { jdExtractedText: jdText, cvExtractedText: cvText } = require('./fixtures/jd.json');
 
 // Stub models and helpers
 const Job = {
   findById: async () => ({ jdExtractedText: jdText })
 };
 
-const userDoc = { cvExtractedText: cvText };
-const User = { findById: async () => userDoc };
+const User = { findById: async () => ({ cvExtractedText: cvText }) };
 
 const compareWithChat = async (jd, cv) => {
   compareWithChat.calledWith = [jd, cv];
@@ -22,14 +16,15 @@ const compareWithChat = async (jd, cv) => {
 };
 
 // Inject stubs into require cache
-const jobModelPath = path.join(__dirname, '../src/models/jobModel.js');
+
+const jobModelPath = require.resolve('../src/models/jobModel.js');
 require.cache[jobModelPath] = { exports: Job };
 
-const userModelPath = path.join(__dirname, '../src/models/userModel.js');
+const userModelPath = require.resolve('../src/models/userModel.js');
 require.cache[userModelPath] = { exports: User };
 
-const geminiHelperPath = path.join(__dirname, '../src/utils/geminiHelper.js');
-require.cache[geminiHelperPath] = { exports: { compareWithChat } };
+const geminiHelperPath = require.resolve('../src/utils/geminiHelper.js');
+require.cache[geminiHelperPath] = { exports: { compareWithChat, getEmbedding: () => {} } };
 
 // Now require the controller
 const { validateCV } = require('../src/controllers/jobController');
@@ -45,4 +40,6 @@ const { validateCV } = require('../src/controllers/jobController');
   assert.strictEqual(res.body.jobId, '1');
   assert.strictEqual(res.body.userId, 'u1');
   assert.strictEqual(res.body.canApply, true);
+  console.log('validateCV test passed');
+
 })();
