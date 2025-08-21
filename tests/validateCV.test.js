@@ -14,8 +14,15 @@ const Job = {
   findById: async () => ({ jdExtractedText: jdText })
 };
 
-const User = { findById: async () => ({ cvExtractedText: cvText }) };
+const userDoc = {
+  cvFile: 'tests/fixtures/cv.pdf',
+  async save() {
+    this.saved = true;
+  }
+};
+const User = { findById: async () => userDoc };
 
+global.extractText = async () => cvText;
 
 const compareWithChat = async (jd, cv) => {
   compareWithChat.calledWith = [jd, cv];
@@ -31,7 +38,10 @@ const userModelPath = path.join(__dirname, '../src/models/userModel.js');
 require.cache[userModelPath] = { exports: User };
 
 const geminiHelperPath = path.join(__dirname, '../src/utils/geminiHelper.js');
-require.cache[geminiHelperPath] = { exports: { compareWithChat, getEmbedding: () => {} } };
+require.cache[geminiHelperPath] = { exports: { compareWithChat } };
+
+const pdfExtractorPath = path.join(__dirname, '../src/utils/pdfExtractor.js');
+require.cache[pdfExtractorPath] = { exports: { extractText: global.extractText } };
 
 // Now require the controller
 const { validateCV } = require('../src/controllers/jobController');
@@ -51,4 +61,5 @@ const { validateCV } = require('../src/controllers/jobController');
   assert.strictEqual(userDoc.cvExtractedText, cvText);
   assert.strictEqual(userDoc.saved, true);
 
+  delete global.extractText;
 })();
