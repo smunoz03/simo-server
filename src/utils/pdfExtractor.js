@@ -8,13 +8,22 @@ if (global.extractText) {
 } else {
   const pdfParse = require('pdf-parse');
 
-  extractText = async (pdfPath) => {
+  /**
+   * Extract text from a PDF file and replace newline characters with the
+   * provided delimiter (default is a space).
+   *
+   * @param {string} pdfPath - Absolute path to the PDF file.
+   * @param {string} [delimiter=' '] - Delimiter used to replace newlines.
+   * @returns {Promise<string>} The extracted, filtered text.
+   */
+  extractText = async (pdfPath, delimiter = ' ') => {
     const dataBuffer = fs.readFileSync(pdfPath);
     const { text } = await pdfParse(dataBuffer);
+    const filteredText = text.replace(/\r?\n/g, delimiter);
     const jsonPath = pdfPath.replace(/\.pdf$/i, '.json');
-    const payload = { cvExtractedText: text };
+    const payload = { cvExtractedText: filteredText };
     fs.writeFileSync(jsonPath, JSON.stringify(payload, null, 2));
-    return text;
+    return filteredText;
   };
 }
 
