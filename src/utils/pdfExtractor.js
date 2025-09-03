@@ -53,7 +53,8 @@ if (global.extractText) {
   extractText = async (pdfPath, delimiter = ' ') => {
     const dataBuffer = fs.readFileSync(pdfPath);
     const { text } = await pdfParse(dataBuffer);
-    const filteredText = text.replace(/\r?\n/g, delimiter);
+    // Replace newlines with the chosen delimiter, then trim edges
+    const filteredText = text.replace(/\r?\n/g, delimiter).trim();
     const jsonPath = pdfPath.replace(/\.pdf$/i, '.json');
     const payload = { cvExtractedText: filteredText };
     fs.writeFileSync(jsonPath, JSON.stringify(payload, null, 2));
