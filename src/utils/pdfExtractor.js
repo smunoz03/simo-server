@@ -42,30 +42,22 @@ if (global.extractText) {
 } else {
   const pdfParse = require('pdf-parse');
 
-  extractText = async (pdfPath) => {
+  /**
+   * Extract text from a PDF file and replace newline characters with the
+   * provided delimiter (default is a space).
+   *
+   * @param {string} pdfPath - Absolute path to the PDF file.
+   * @param {string} [delimiter=' '] - Delimiter used to replace newlines.
+   * @returns {Promise<string>} The extracted, filtered text.
+   */
+  extractText = async (pdfPath, delimiter = ' ') => {
     const dataBuffer = fs.readFileSync(pdfPath);
-
-    // Use a custom pagerender to build page text more explicitly before cleaning
-    const options = {
-      pagerender: async (pageData) => {
-        const textContent = await pageData.getTextContent();
-        // Join items with spaces and pre-normalize intra-item whitespace
-        const strings = textContent.items.map((it) => String(it.str || '').replace(/\s+/g, ' ').trim());
-        // Reconstruct page text with spaces (line/paragraph boundaries will be normalized by cleaner)
-        let pageText = strings.join(' ');
-        return pageText + '\n'; // keep a delimiter between pages pre-cleaning
-      },
-    };
-
-    const { text } = await pdfParse(dataBuffer, options);
-
-    // Clean and normalize extracted text (removes \n, tabs, control chars, etc.)
-    const cleaned = cleanText(text);
-
+    const { text } = await pdfParse(dataBuffer);
+    const filteredText = text.replace(/\r?\n/g, delimiter);
     const jsonPath = pdfPath.replace(/\.pdf$/i, '.json');
-    const payload = { cvExtractedText: cleaned };
+    const payload = { cvExtractedText: filteredText };
     fs.writeFileSync(jsonPath, JSON.stringify(payload, null, 2));
-    return cleaned;
+    return filteredText;
   };
 }
 

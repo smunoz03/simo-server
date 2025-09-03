@@ -3,7 +3,9 @@ const assert = require('assert');
 // Sample data used in the test
 const jdJson = require('./fixtures/jd.json');
 const cvJson = require('./fixtures/cv.json');
-const cvText = cvJson.pages.map(page => page.text).join(' ');
+const cvText = cvJson.cvExtractedText
+  ? cvJson.cvExtractedText
+  : cvJson.pages.map(page => page.text).join(' ');
 
 // Stub models and helpers
 const Job = {};
