@@ -1,14 +1,21 @@
-// src/middleware/upload.js
+/**
+ * File upload middleware using multer
+ * @module middleware/upload
+ */
+
 const fs = require('fs');
 const path = require('path');
 const multer = require('multer');
 const crypto = require('crypto');
+const { MAX_FILE_SIZE, ALLOWED_FILE_TYPES, CV_UPLOAD_PATH } = require('../config/constants');
 
 // Ensure upload directory exists
-const uploadDir = path.join(__dirname, '../../uploads/cvs');
+const uploadDir = path.join(__dirname, '../../', CV_UPLOAD_PATH);
 fs.mkdirSync(uploadDir, { recursive: true });
 
-// Multer storage config
+/**
+ * Multer storage configuration
+ */
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
     cb(null, uploadDir);
@@ -19,13 +26,13 @@ const storage = multer.diskStorage({
     const timestamp = Date.now().toString();
     const ext = path.extname(file.originalname).toLowerCase();
 
-    // ensure only one CV exists per user by removing old files
+    // Ensure only one CV exists per user by removing old files
     const existing = fs.readdirSync(uploadDir).find(f => f.startsWith(userHash));
     if (existing) {
       fs.unlinkSync(path.join(uploadDir, existing));
     }
 
-    // hash userId + timestamp for the stored filename
+    // Hash userId + timestamp for the stored filename
     const uniqueHash = crypto
       .createHash('sha256')
       .update(userId + timestamp)
@@ -34,20 +41,25 @@ const storage = multer.diskStorage({
   }
 });
 
-// File filter: allow only .pdf and correct MIME
+/**
+ * File filter to allow only PDFs
+ */
 const fileFilter = (req, file, cb) => {
   const ext = path.extname(file.originalname).toLowerCase();
-  if (ext === '.pdf' && file.mimetype === 'application/pdf') {
+  if (ext === '.pdf' && ALLOWED_FILE_TYPES.includes(file.mimetype)) {
     cb(null, true);
   } else {
-    cb(new Error('Solo se permiten archivos PDF con Content-Type application/pdf'), false);
+    cb(new Error('Solo se permiten archivos PDF'), false);
   }
 };
 
+/**
+ * Configured multer instance
+ */
 const upload = multer({
   storage,
   fileFilter,
-  limits: { fileSize: 5 * 1024 * 1024 } // optional: max 5 MB
+  limits: { fileSize: MAX_FILE_SIZE }
 });
 
 module.exports = upload;

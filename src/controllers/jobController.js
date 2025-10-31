@@ -1,32 +1,22 @@
-// src/controllers/jobController.js
-const Job = require('../models/jobModel');
-const User = require('../models/userModel');
-const { compareWithChat } = require('../utils/geminiHelper');
+/**
+ * Job controller - handles HTTP requests for job matching
+ * @module controllers/jobController
+ */
 
+const jobService = require('../services/jobService');
+const { sendSuccess } = require('../utils/responseFormatter');
+
+/**
+ * @desc   Find all jobs that match current user's CV
+ * @route  GET /api/jobs/matches
+ * @access Private (requires session)
+ */
 exports.validateCV = async (req, res, next) => {
   try {
     const userId = req.session.userId;
+    const matches = await jobService.findMatchingJobsForUser(userId);
 
-    // 1) Fetch user and ensure CV text is available
-    const user = await User.findById(userId);
-    if (!user || !user.cvExtractedText) {
-      return res.status(404).json({ message: 'Usuario no encontrado o sin CV procesado.' });
-    }
-    const cvText = user.cvExtractedText;
-
-    // 2) Evaluate against all jobs with JD JSON
-    const jobs = await Job.find({ jdExtractedJson: { $exists: true } });
-
-    const matches = [];
-    for (const job of jobs) {
-      const jdJson = JSON.stringify(job.jdExtractedJson);
-      const result = await compareWithChat(jdJson, cvText);
-      if (result && typeof result.score === 'number' && result.score >= 70 && result.score <= 100) {
-        matches.push({ jobId: job._id.toString(), ...result });
-      }
-    }
-
-    return res.json(matches);
+    sendSuccess(res, 200, { matches, count: matches.length });
   } catch (err) {
     next(err);
   }
