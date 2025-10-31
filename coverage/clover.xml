@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1761878166724" clover="3.2.0">
-  <project timestamp="1761878166724" name="All files">
+<coverage generated="1761879127160" clover="3.2.0">
+  <project timestamp="1761879127161" name="All files">
     <metrics statements="389" coveredstatements="21" conditionals="150" coveredconditionals="15" methods="61" coveredmethods="10" elements="600" coveredelements="46" complexity="0" loc="389" ncloc="389" packages="8" files="19" classes="19"/>
     <package name="config">
       <metrics statements="1" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
-      <file name="constants.js" path="C:\Users\munoz\facilisimo\src\config\constants.js">
+      <file name="constants.js" path="/mnt/c/Users/munoz/facilisimo/src/config/constants.js">
         <metrics statements="1" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
         <line num="6" count="0" type="stmt"/>
       </file>
     </package>
     <package name="controllers">
       <metrics statements="49" coveredstatements="0" conditionals="8" coveredconditionals="0" methods="8" coveredmethods="0"/>
-      <file name="authController.js" path="C:\Users\munoz\facilisimo\src\controllers\authController.js">
+      <file name="authController.js" path="/mnt/c/Users/munoz/facilisimo/src/controllers/authController.js">
         <metrics statements="41" coveredstatements="0" conditionals="8" coveredconditionals="0" methods="7" coveredmethods="0"/>
         <line num="6" count="0" type="stmt"/>
         <line num="7" count="0" type="stmt"/>
@@ -55,7 +55,7 @@
         <line num="114" count="0" type="cond" truecount="0" falsecount="2"/>
         <line num="115" count="0" type="stmt"/>
       </file>
-      <file name="jobController.js" path="C:\Users\munoz\facilisimo\src\controllers\jobController.js">
+      <file name="jobController.js" path="/mnt/c/Users/munoz/facilisimo/src/controllers/jobController.js">
         <metrics statements="8" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="0"/>
         <line num="6" count="0" type="stmt"/>
         <line num="7" count="0" type="stmt"/>
@@ -69,7 +69,7 @@
     </package>
     <package name="jobs">
       <metrics statements="43" coveredstatements="0" conditionals="15" coveredconditionals="0" methods="9" coveredmethods="0"/>
-      <file name="weeklyCvJobCompare.js" path="C:\Users\munoz\facilisimo\src\jobs\weeklyCvJobCompare.js">
+      <file name="weeklyCvJobCompare.js" path="/mnt/c/Users/munoz/facilisimo/src/jobs/weeklyCvJobCompare.js">
         <metrics statements="43" coveredstatements="0" conditionals="15" coveredconditionals="0" methods="9" coveredmethods="0"/>
         <line num="6" count="0" type="stmt"/>
         <line num="11" count="0" type="stmt"/>
@@ -118,7 +118,7 @@
     </package>
     <package name="middleware">
       <metrics statements="65" coveredstatements="0" conditionals="32" coveredconditionals="0" methods="10" coveredmethods="0"/>
-      <file name="auth.js" path="C:\Users\munoz\facilisimo\src\middleware\auth.js">
+      <file name="auth.js" path="/mnt/c/Users/munoz/facilisimo/src/middleware/auth.js">
         <metrics statements="7" coveredstatements="0" conditionals="6" coveredconditionals="0" methods="1" coveredmethods="0"/>
         <line num="6" count="0" type="stmt"/>
         <line num="12" count="0" type="stmt"/>
@@ -128,7 +128,7 @@
         <line num="18" count="0" type="stmt"/>
         <line num="21" count="0" type="stmt"/>
       </file>
-      <file name="errorHandler.js" path="C:\Users\munoz\facilisimo\src\middleware\errorHandler.js">
+      <file name="errorHandler.js" path="/mnt/c/Users/munoz/facilisimo/src/middleware/errorHandler.js">
         <metrics statements="28" coveredstatements="0" conditionals="20" coveredconditionals="0" methods="5" coveredmethods="0"/>
         <line num="2" count="0" type="stmt"/>
         <line num="3" count="0" type="stmt"/>
@@ -159,7 +159,7 @@
         <line num="102" count="0" type="stmt"/>
         <line num="103" count="0" type="stmt"/>
       </file>
-      <file name="upload.js" path="C:\Users\munoz\facilisimo\src\middleware\upload.js">
+      <file name="upload.js" path="/mnt/c/Users/munoz/facilisimo/src/middleware/upload.js">
         <metrics statements="25" coveredstatements="0" conditionals="6" coveredconditionals="0" methods="4" coveredmethods="0"/>
         <line num="6" count="0" type="stmt"/>
         <line num="7" count="0" type="stmt"/>
@@ -187,7 +187,7 @@
         <line num="59" count="0" type="stmt"/>
         <line num="65" count="0" type="stmt"/>
       </file>
-      <file name="validators.js" path="C:\Users\munoz\facilisimo\src\middleware\validators.js">
+      <file name="validators.js" path="/mnt/c/Users/munoz/facilisimo/src/middleware/validators.js">
         <metrics statements="5" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
         <line num="6" count="0" type="stmt"/>
         <line num="12" count="0" type="stmt"/>
@@ -198,13 +198,13 @@
     </package>
     <package name="models">
       <metrics statements="6" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
-      <file name="jobModel.js" path="C:\Users\munoz\facilisimo\src\models\jobModel.js">
+      <file name="jobModel.js" path="/mnt/c/Users/munoz/facilisimo/src/models/jobModel.js">
         <metrics statements="3" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
         <line num="2" count="0" type="stmt"/>
         <line num="4" count="0" type="stmt"/>
         <line num="14" count="0" type="stmt"/>
       </file>
-      <file name="userModel.js" path="C:\Users\munoz\facilisimo\src\models\userModel.js">
+      <file name="userModel.js" path="/mnt/c/Users/munoz/facilisimo/src/models/userModel.js">
         <metrics statements="3" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
         <line num="2" count="0" type="stmt"/>
         <line num="4" count="0" type="stmt"/>
@@ -213,7 +213,7 @@
     </package>
     <package name="routes">
       <metrics statements="14" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
-      <file name="authRoutes.js" path="C:\Users\munoz\facilisimo\src\routes\authRoutes.js">
+      <file name="authRoutes.js" path="/mnt/c/Users/munoz/facilisimo/src/routes/authRoutes.js">
         <metrics statements="14" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
         <line num="6" count="0" type="stmt"/>
         <line num="14" count="0" type="stmt"/>
@@ -233,7 +233,7 @@
     </package>
     <package name="services">
       <metrics statements="149" coveredstatements="0" conditionals="66" coveredconditionals="0" methods="18" coveredmethods="0"/>
-      <file name="authService.js" path="C:\Users\munoz\facilisimo\src\services\authService.js">
+      <file name="authService.js" path="/mnt/c/Users/munoz/facilisimo/src/services/authService.js">
         <metrics statements="48" coveredstatements="0" conditionals="12" coveredconditionals="0" methods="4" coveredmethods="0"/>
         <line num="6" count="0" type="stmt"/>
         <line num="7" count="0" type="stmt"/>
@@ -284,7 +284,7 @@
         <line num="157" count="0" type="stmt"/>
         <line num="160" count="0" type="stmt"/>
       </file>
-      <file name="cvService.js" path="C:\Users\munoz\facilisimo\src\services\cvService.js">
+      <file name="cvService.js" path="/mnt/c/Users/munoz/facilisimo/src/services/cvService.js">
         <metrics statements="52" coveredstatements="0" conditionals="20" coveredconditionals="0" methods="10" coveredmethods="0"/>
         <line num="6" count="0" type="stmt"/>
         <line num="7" count="0" type="stmt"/>
@@ -339,7 +339,7 @@
         <line num="140" count="0" type="stmt"/>
         <line num="141" count="0" type="stmt"/>
       </file>
-      <file name="jobService.js" path="C:\Users\munoz\facilisimo\src\services\jobService.js">
+      <file name="jobService.js" path="/mnt/c/Users/munoz/facilisimo/src/services/jobService.js">
         <metrics statements="49" coveredstatements="0" conditionals="34" coveredconditionals="0" methods="4" coveredmethods="0"/>
         <line num="6" count="0" type="stmt"/>
         <line num="7" count="0" type="stmt"/>
@@ -394,14 +394,14 @@
     </package>
     <package name="utils">
       <metrics statements="62" coveredstatements="21" conditionals="29" coveredconditionals="15" methods="16" coveredmethods="10"/>
-      <file name="email.js" path="C:\Users\munoz\facilisimo\src\utils\email.js">
+      <file name="email.js" path="/mnt/c/Users/munoz/facilisimo/src/utils/email.js">
         <metrics statements="4" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="0"/>
         <line num="2" count="0" type="stmt"/>
         <line num="4" count="0" type="stmt"/>
         <line num="20" count="0" type="stmt"/>
         <line num="28" count="0" type="stmt"/>
       </file>
-      <file name="errors.js" path="C:\Users\munoz\facilisimo\src\utils\errors.js">
+      <file name="errors.js" path="/mnt/c/Users/munoz/facilisimo/src/utils/errors.js">
         <metrics statements="14" coveredstatements="12" conditionals="16" coveredconditionals="9" methods="8" coveredmethods="6"/>
         <line num="13" count="8" type="stmt"/>
         <line num="14" count="8" type="stmt"/>
@@ -418,7 +418,7 @@
         <line num="81" count="0" type="stmt"/>
         <line num="85" count="1" type="stmt"/>
       </file>
-      <file name="geminiHelper.js" path="C:\Users\munoz\facilisimo\src\utils\geminiHelper.js">
+      <file name="geminiHelper.js" path="/mnt/c/Users/munoz/facilisimo/src/utils/geminiHelper.js">
         <metrics statements="10" coveredstatements="0" conditionals="2" coveredconditionals="0" methods="1" coveredmethods="0"/>
         <line num="2" count="0" type="stmt"/>
         <line num="5" count="0" type="stmt"/>
@@ -431,7 +431,7 @@
         <line num="39" count="0" type="stmt"/>
         <line num="43" count="0" type="stmt"/>
       </file>
-      <file name="pdfExtractor.js" path="C:\Users\munoz\facilisimo\src\utils\pdfExtractor.js">
+      <file name="pdfExtractor.js" path="/mnt/c/Users/munoz/facilisimo/src/utils/pdfExtractor.js">
         <metrics statements="25" coveredstatements="0" conditionals="5" coveredconditionals="0" methods="2" coveredmethods="0"/>
         <line num="1" count="0" type="stmt"/>
         <line num="2" count="0" type="stmt"/>
@@ -459,7 +459,7 @@
         <line num="61" count="0" type="stmt"/>
         <line num="65" count="0" type="stmt"/>
       </file>
-      <file name="responseFormatter.js" path="C:\Users\munoz\facilisimo\src\utils\responseFormatter.js">
+      <file name="responseFormatter.js" path="/mnt/c/Users/munoz/facilisimo/src/utils/responseFormatter.js">
         <metrics statements="9" coveredstatements="9" conditionals="6" coveredconditionals="6" methods="4" coveredmethods="4"/>
         <line num="13" count="1" type="cond" truecount="1" falsecount="0"/>
         <line num="14" count="6" type="stmt"/>

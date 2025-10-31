@@ -1,5 +1,5 @@
 TN:
-SF:src\config\constants.js
+SF:src/config/constants.js
 FNF:0
 FNH:0
 DA:6,0
@@ -9,7 +9,7 @@ BRF:0
 BRH:0
 end_of_record
 TN:
-SF:src\controllers\authController.js
+SF:src/controllers/authController.js
 FN:15,(anonymous_0)
 FN:29,(anonymous_1)
 FN:57,(anonymous_2)
@@ -81,7 +81,7 @@ BRF:8
 BRH:0
 end_of_record
 TN:
-SF:src\controllers\jobController.js
+SF:src/controllers/jobController.js
 FN:14,(anonymous_0)
 FNF:1
 FNH:0
@@ -100,7 +100,7 @@ BRF:0
 BRH:0
 end_of_record
 TN:
-SF:src\jobs\weeklyCvJobCompare.js
+SF:src/jobs/weeklyCvJobCompare.js
 FN:21,msUntilNextRun
 FN:42,runWeeklyComparison
 FN:57,(anonymous_2)
@@ -185,7 +185,7 @@ BRF:15
 BRH:0
 end_of_record
 TN:
-SF:src\middleware\auth.js
+SF:src/middleware/auth.js
 FN:12,(anonymous_0)
 FNF:1
 FNH:0
@@ -209,7 +209,7 @@ BRF:6
 BRH:0
 end_of_record
 TN:
-SF:src\middleware\errorHandler.js
+SF:src/middleware/errorHandler.js
 FN:8,(anonymous_0)
 FN:11,(anonymous_1)
 FN:24,(anonymous_2)
@@ -276,7 +276,7 @@ BRF:20
 BRH:0
 end_of_record
 TN:
-SF:src\middleware\upload.js
+SF:src/middleware/upload.js
 FN:20,(anonymous_0)
 FN:23,(anonymous_1)
 FN:30,(anonymous_2)
@@ -324,7 +324,7 @@ BRF:6
 BRH:0
 end_of_record
 TN:
-SF:src\middleware\validators.js
+SF:src/middleware/validators.js
 FNF:0
 FNH:0
 DA:6,0
@@ -338,7 +338,7 @@ BRF:0
 BRH:0
 end_of_record
 TN:
-SF:src\models\jobModel.js
+SF:src/models/jobModel.js
 FNF:0
 FNH:0
 DA:2,0
@@ -350,7 +350,7 @@ BRF:0
 BRH:0
 end_of_record
 TN:
-SF:src\models\userModel.js
+SF:src/models/userModel.js
 FNF:0
 FNH:0
 DA:2,0
@@ -362,7 +362,7 @@ BRF:0
 BRH:0
 end_of_record
 TN:
-SF:src\routes\authRoutes.js
+SF:src/routes/authRoutes.js
 FNF:0
 FNH:0
 DA:6,0
@@ -385,7 +385,7 @@ BRF:0
 BRH:0
 end_of_record
 TN:
-SF:src\services\authService.js
+SF:src/services/authService.js
 FN:31,(anonymous_0)
 FN:87,(anonymous_1)
 FN:117,(anonymous_2)
@@ -462,7 +462,7 @@ BRF:12
 BRH:0
 end_of_record
 TN:
-SF:src\services\cvService.js
+SF:src/services/cvService.js
 FN:20,(anonymous_0)
 FN:28,(anonymous_1)
 FN:39,(anonymous_2)
@@ -563,7 +563,7 @@ BRF:20
 BRH:0
 end_of_record
 TN:
-SF:src\services\jobService.js
+SF:src/services/jobService.js
 FN:17,(anonymous_0)
 FN:32,(anonymous_1)
 FN:82,(anonymous_2)
@@ -663,7 +663,7 @@ BRF:34
 BRH:0
 end_of_record
 TN:
-SF:src\utils\email.js
+SF:src/utils/email.js
 FN:19,sendEmail
 FNF:1
 FNH:0
@@ -678,7 +678,7 @@ BRF:0
 BRH:0
 end_of_record
 TN:
-SF:src\utils\errors.js
+SF:src/utils/errors.js
 FN:12,(anonymous_0)
 FN:25,(anonymous_1)
 FN:34,(anonymous_2)
@@ -733,7 +733,7 @@ BRF:16
 BRH:9
 end_of_record
 TN:
-SF:src\utils\geminiHelper.js
+SF:src/utils/geminiHelper.js
 FN:12,compareWithChat
 FNF:1
 FNH:0
@@ -756,7 +756,7 @@ BRF:2
 BRH:0
 end_of_record
 TN:
-SF:src\utils\pdfExtractor.js
+SF:src/utils/pdfExtractor.js
 FN:5,cleanText
 FN:53,(anonymous_1)
 FNF:2
@@ -799,7 +799,7 @@ BRF:5
 BRH:0
 end_of_record
 TN:
-SF:src\utils\responseFormatter.js
+SF:src/utils/responseFormatter.js
 FN:13,(anonymous_0)
 FN:27,(anonymous_1)
 FN:37,(anonymous_2)
